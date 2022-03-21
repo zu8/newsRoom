@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_L_article"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_R_article"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="16dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide_TopH_article"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="16dp" />
+
+    <ImageView
+        android:id="@+id/icon_IV_article"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/round_rect_shape"
+        android:clipToOutline="true"
+        app:layout_constraintStart_toStartOf="@+id/guide_L_article"
+        app:layout_constraintTop_toTopOf="@+id/guide_TopH_article"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/source_name_TV_article"
+        style="@style/H2Style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@+id/icon_IV_article"
+        app:layout_constraintEnd_toStartOf="@+id/guide_R_article"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/icon_IV_article"
+        app:layout_constraintTop_toTopOf="@+id/icon_IV_article"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/date_TV_article"
+        style="@style/H3Style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/source_name_TV_article"
+        app:layout_constraintStart_toEndOf="@+id/source_name_TV_article"
+        tools:text="Date" />
+
+    <TextView
+        android:id="@+id/title_TV_article"
+        style="@style/TitleStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:maxLines="6"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/guide_R_article"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/guide_L_article"
+        app:layout_constraintTop_toBottomOf="@id/bar_top_article"
+        tools:text="Илон Маск утверждает, что обязался согласовывать свои твиты с юристами под давлением SEC" />
+
+    <ImageView
+        android:id="@+id/banner_TV_article"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toStartOf="@+id/guide_R_article"
+        app:layout_constraintStart_toStartOf="@+id/guide_L_article"
+        app:layout_constraintTop_toBottomOf="@id/title_TV_article"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bar_top_article"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="date_TV_article,source_name_TV_article,icon_IV_article"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/bar_bottom_article"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="title_TV_article,banner_TV_article"
+        tools:layout_editor_absoluteY="517dp" />
+
+    <TextView
+        android:id="@+id/description_TV_article"
+        style="@style/H2Style"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/guide_R_article"
+        app:layout_constraintStart_toStartOf="@+id/guide_L_article"
+        app:layout_constraintTop_toBottomOf="@id/bar_bottom_article"
+        tools:layout_editor_absoluteY="559dp"
+        tools:text="Генеральный директор Tesla Илон Маск просит суд отклонить постановление о договоренности с Комиссией по ценным бумагам и биржам (SEC) США, в соответствии с которым он обязан согласовывать свои твиты с юристами перед публикацией. Маск заявляет, что дал это согласие под давлением SEC. Адвокаты Маска настаивают, что мера ограничивает права главы Tesla на Первую поправку к Конституции." />
+
+    <View
+        android:id="@+id/div_article"
+        android:layout_width="0dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/description_TV_article"
+        app:layout_constraintStart_toStartOf="@id/guide_L_article"
+        app:layout_constraintEnd_toStartOf="@id/guide_R_article"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

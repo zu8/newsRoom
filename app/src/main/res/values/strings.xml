@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">NewsRoom</string>
+    <string name="feed">feed</string>
+    <string name="search">search</string>
+    <string name="bookmarks">bookmarks</string>
+    <string name="preferences">preferences</string>
+    <string name="settings">settings</string>
+    <string name="see_more">More</string>
+    <string name="Breaking_news">Breaking news</string>
+    <string name="input_search_here">input search here</string>
+    <string name="search_hint">type here to search</string>
+    <string name="published">Published</string>
+    <string name="move_to_website">read in source</string>
+    <string name="add_bookmark">save to bookmarks</string>
+</resources>

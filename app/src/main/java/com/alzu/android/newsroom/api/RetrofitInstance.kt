@@ -1,7 +1,6 @@
 package com.alzu.android.newsroom.api
 
 import android.util.Log
-import com.alzu.android.newsroom.utils.Constants.Companion.API_KEY
 import com.alzu.android.newsroom.utils.Constants.Companion.BASE_URL
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

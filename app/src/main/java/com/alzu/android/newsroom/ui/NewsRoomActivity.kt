@@ -1,5 +1,7 @@
 package com.alzu.android.newsroom.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -7,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -16,17 +17,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.alzu.android.newsroom.R
 import com.alzu.android.newsroom.data.Article
 import com.alzu.android.newsroom.data.ArticleDB
 import com.alzu.android.newsroom.repository.NewsRepository
-import com.alzu.android.newsroom.ui.fragments.ArticleFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 
-
 class NewsRoomActivity : AppCompatActivity() {
     val TAG = "NewsRoomActivity"
+
     lateinit var viewModel: NewsViewModel
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -36,11 +37,12 @@ class NewsRoomActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_room)
-        //AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_YES)
+        // setting theme
+        setTheme(this)
 
         val repo = NewsRepository(ArticleDB(this))
-        val viewModelProviderFactory = NewsViewModelProviderFactory(repo)
-        viewModel = ViewModelProvider(this,viewModelProviderFactory)
+        val viewModelProviderFactory = NewsViewModelProviderFactory(this.application, repo)
+        viewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(NewsViewModel::class.java)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -52,13 +54,17 @@ class NewsRoomActivity : AppCompatActivity() {
 
         //Setup actionBar
         setSupportActionBar(findViewById(R.id.toolbar))
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.newsFeedFragment,
-            R.id.searchFragment,R.id.bookmarksFragment))
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.newsFeedFragment,
+                R.id.searchFragment, R.id.bookmarksFragment
+            )
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         //Inflate menu to initialize checkOut menuItem
         val menu = findViewById<Toolbar>(R.id.toolbar).menu
-        menuInflater.inflate(R.menu.menu_app_bar,menu)
+        menuInflater.inflate(R.menu.menu_app_bar, menu)
         menu?.let {
             checkOut = it.findItem(R.id.action_add_bookmark)
         }
@@ -70,7 +76,7 @@ class NewsRoomActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_app_bar,menu)
+        menuInflater.inflate(R.menu.menu_app_bar, menu)
         menu?.let {
             checkOut = it.findItem(R.id.action_add_bookmark)
             checkOut.isVisible = false
@@ -82,12 +88,15 @@ class NewsRoomActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
         return when (menuItem.itemId) {
             R.id.action_add_bookmark -> {
-                supportFragmentManager.setFragmentResultListener("article_item",this){
-                    articleItem, bundle -> item = bundle.getSerializable("article") as Article?
+                supportFragmentManager.setFragmentResultListener(
+                    "article_item",
+                    this
+                ) { articleItem, bundle ->
+                    item = bundle.getSerializable("article") as Article?
                     Log.i(TAG, "reading result")
                 }
-                Log.i(TAG,"$item")
-                item?.let{
+                Log.i(TAG, "$item")
+                item?.let {
                     viewModel.saveArticle(it)
                     val mView = findViewById<View>(android.R.id.content)
                     Snackbar.make(mView, "Bookmark added", Snackbar.LENGTH_SHORT).show()
@@ -98,4 +107,14 @@ class NewsRoomActivity : AppCompatActivity() {
         }
     }
 
+    private fun setTheme(context: Context){
+        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val nightMode = sp.getBoolean("nightMode", false)
+        val mode = if (nightMode as Boolean) {
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        }
+        AppCompatDelegate.setDefaultNightMode(mode)
+    }
 }

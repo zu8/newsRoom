@@ -12,17 +12,16 @@ import com.alzu.android.newsroom.databinding.ItemBookmarkBinding
 import com.bumptech.glide.Glide
 import java.lang.Exception
 
-
-class BookmarksAdapter(private val onClick: (Article) -> Unit):
+class BookmarksAdapter(private val onClick: (Article) -> Unit) :
     RecyclerView.Adapter<BookmarksAdapter.BookmarkViewHolder>() {
     private val TAG = "BookmarksAdapter"
 
-    inner class BookmarkViewHolder(view: View, val onClick: (Article) -> Unit ):
-        RecyclerView.ViewHolder(view){
+    inner class BookmarkViewHolder(view: View, val onClick: (Article) -> Unit) :
+        RecyclerView.ViewHolder(view) {
         private val binding = ItemBookmarkBinding.bind(view)
         private var currentItem: Article? = null
 
-        init{
+        init {
             binding.iconIV.clipToOutline = true
             binding.root.setOnClickListener {
                 currentItem?.let {
@@ -30,65 +29,75 @@ class BookmarksAdapter(private val onClick: (Article) -> Unit):
                 }
             }
         }
-        fun bind(article:Article) = with (binding){
+
+        fun bind(article: Article) = with(binding) {
             currentItem = article
             //binding text fields
-            currentItem?.source?.name?.let{ sourceNameTV.text = it }
-            currentItem?.title?.let{ titleTV.text = it}
-            currentItem?.publishedAt?.let{ dateTV.text = it}
+            currentItem?.source?.name?.let { sourceNameTV.text = it }
+            currentItem?.title?.let { titleTV.text = it }
+            currentItem?.publishedAt?.let { dateTV.text = it }
             //placing banner-picture
-            currentItem?.urlToImage?.let{
-                try{
+            currentItem?.urlToImage?.let {
+                try {
                     Glide.with(root.context).load(it).into(articleIV)
-                }catch(ex: Exception){
+                } catch (ex: Exception) {
                     Glide.with(root.context)
-                        .load("https://imgholder.ru/100x100/8493a8/adb9ca" +
-                                "&text=${currentItem?.source?.name}&font=kelson&kz=70")
+                        .load(
+                            "https://imgholder.ru/100x100/8493a8/adb9ca" +
+                                    "&text=${currentItem?.source?.name}&font=kelson&kz=70"
+                        )
                         .into(articleIV)
                 }
             }
-            if (currentItem?.urlToImage == null){
+            if (currentItem?.urlToImage == null) {
                 Glide.with(root.context)
-                    .load("https://imgholder.ru/100x100/${pickRandColorBookmark()}/cccccc" +
-                            "&text=${currentItem?.source?.name}&font=kelson&kz=70")
+                    .load(
+                        "https://imgholder.ru/100x100/${pickRandColorBookmark()}/cccccc" +
+                                "&text=${currentItem?.source?.name}&font=kelson&kz=70"
+                    )
                     .into(articleIV)
             }
             // placing source-icon
-            currentItem?.iconUrl?.let{
-                try{
+            currentItem?.iconUrl?.let {
+                try {
                     Glide.with(root.context).load(it).into(iconIV)
-                }catch(ex: Exception){
+                } catch (ex: Exception) {
                     Glide.with(root.context)
-                        .load("https://imgholder.ru/48/FF0000/cccccc" +
-                                "&text=${currentItem?.source?.name}&font=kelson&kz=70")
+                        .load(
+                            "https://imgholder.ru/48/FF0000/cccccc" +
+                                    "&text=${currentItem?.source?.name}&font=kelson&kz=70"
+                        )
                         .into(iconIV)
                 }
             }
-            if (currentItem?.iconUrl == null){
+            if (currentItem?.iconUrl == null) {
                 Glide.with(root.context)
-                    .load("https://imgholder.ru/48/FF0000/cccccc" +
-                            "&text=${currentItem?.source?.name?.get(0)}&font=roboto&kz=60")
+                    .load(
+                        "https://imgholder.ru/48/FF0000/cccccc" +
+                                "&text=${currentItem?.source?.name?.get(0)}&font=roboto&kz=60"
+                    )
                     .into(iconIV)
             }
 
         }
 
-        fun pickRandColorBookmark(): String{
-            val colors = listOf("9dbf16","ff9948","0082d5","3d4d65","adb9ca")
+        private fun pickRandColorBookmark(): String {
+            val colors = listOf("9dbf16", "ff9948", "0082d5", "3d4d65", "adb9ca")
             val colorNumber = (0..4).random()
             return colors[colorNumber]
         }
 
     }
 
-    val differ = AsyncListDiffer(this,BookmarksDiffCallback())
+    val differ = AsyncListDiffer(this, BookmarksDiffCallback())
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkViewHolder {
         return BookmarkViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_bookmark,
-                parent,false)
-            ,onClick
+                .inflate(
+                    R.layout.item_bookmark,
+                    parent, false
+                ), onClick
         )
     }
 
@@ -97,7 +106,7 @@ class BookmarksAdapter(private val onClick: (Article) -> Unit):
     }
 
     override fun getItemCount(): Int {
-        return  differ.currentList.size
+        return differ.currentList.size
     }
 }
 

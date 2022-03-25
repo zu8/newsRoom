@@ -9,9 +9,7 @@ plugins {
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
 def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
-/*Properties apikeyProperties = new Properties()
-apikeyProperties.load(rootProject.file("apikey.properties").newDataInputStream())
-def aKey = apikeyProperties.getProperty("API_KEY")*/
+
 
 android {
     compileSdk 32
@@ -25,10 +23,15 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-
-        //buildConfigField("String", "API_KEY", "\"$aKey\"")
         buildConfigField("String", "API_KEY", apikeyProperties['API_KEY'])
         buildConfigField("String", "API_KEY2", apikeyProperties['API_KEY2'])
+        buildConfigField("String", "API_KEY3", apikeyProperties['API_KEY3'])
+        buildConfigField("String", "API_KEY4", apikeyProperties['API_KEY4'])
+        buildConfigField("String", "API_KEY5", apikeyProperties['API_KEY5'])
+        buildConfigField("String", "API_KEY6", apikeyProperties['API_KEY6'])
+        buildConfigField("String", "API_KEY7", apikeyProperties['API_KEY7'])
+        buildConfigField("String", "API_KEY8", apikeyProperties['API_KEY8'])
+        buildConfigField("String", "API_KEY9", apikeyProperties['API_KEY9'])
 
     }
 
@@ -57,6 +60,8 @@ dependencies {
     def lifecycle_version = "2.4.1"
     def touchIconVersion = "0.9.3"
     def fragment_version = "1.4.1"
+    def paging_version = "3.1.1"
+    def pref_version = "1.2.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -68,7 +73,6 @@ dependencies {
 // navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    
 // room
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -79,12 +83,15 @@ dependencies {
 // coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0'
-
 // glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 // touch_icon
     implementation "net.mm2d.touchicon:touchicon:$touchIconVersion"
+// paging 3
+    implementation "androidx.paging:paging-runtime:$paging_version"
+// preferences
+    implementation "androidx.preference:preference:$pref_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

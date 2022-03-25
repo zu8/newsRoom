@@ -56,9 +56,6 @@
         app:exitAnim="@anim/nav_default_exit_anim"
         app:popEnterAnim="@anim/nav_default_pop_enter_anim"
         app:popExitAnim="@anim/nav_default_pop_exit_anim">
-        <argument
-            android:name="articleAt"
-            app:argType="integer" />
         <action
             android:id="@+id/action_articleFragment_to_webArticleFragment"
             app:destination="@id/webArticleFragment" />
@@ -74,6 +71,9 @@
         <action
             android:id="@+id/action_articleFragment_to_bookmarksFragment2"
             app:destination="@id/bookmarksFragment" />
+        <argument
+            android:name="article"
+            app:argType="com.alzu.android.newsroom.data.Article" />
     </fragment>
     <fragment
         android:id="@+id/webArticleFragment"

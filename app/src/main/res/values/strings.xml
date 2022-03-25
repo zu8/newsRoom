@@ -12,4 +12,7 @@
     <string name="published">Published</string>
     <string name="move_to_website">read in source</string>
     <string name="add_bookmark">save to bookmarks</string>
+    <string name="error_text">Oops! Some load error occurred</string>
+    <string name="try_again">Try again!</string>
+    <string name="title_pref_countries">Select the country-news source</string>
 </resources>

@@ -11,14 +11,14 @@ import java.io.Serializable
 
 data class Article(
     @PrimaryKey(autoGenerate = true)
-     var id: Int? = null,
-     var iconUrl: String? = null,
-     var author: String? = null,
-     var content: String? = null,
-     var description: String? = null,
-     val publishedAt: String,
-     val source: Source,
-     val title: String,
-     val url: String,
-     var urlToImage: String? = null
-): Serializable
+    var id: Int? = null,
+    var iconUrl: String? = null,
+    var author: String? = null,
+    var content: String? = null,
+    var description: String? = null,
+    val publishedAt: String,
+    val source: Source?,
+    val title: String,
+    val url: String,
+    var urlToImage: String? = null
+) : Serializable

@@ -37,4 +37,14 @@
         app:layout_constraintEnd_toEndOf="@+id/feed_RV"
         app:layout_constraintStart_toStartOf="@+id/feed_RV"
         app:layout_constraintTop_toTopOf="@+id/feed_RV" />
+
+    <Button
+        android:id="@+id/err_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refresh"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

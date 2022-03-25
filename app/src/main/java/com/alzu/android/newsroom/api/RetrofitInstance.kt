@@ -9,21 +9,23 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance {
-    companion object{
+    companion object {
 
-        private val retrofit by lazy{
+        private val retrofit by lazy {
 
             // create interceptor to insert api-key to all requests
-            val interceptor: Interceptor = object: Interceptor{
+            val interceptor: Interceptor = object : Interceptor {
                 override fun intercept(chain: Interceptor.Chain): Response {
                     val originalRequest = chain.request()
                     // API_KEY from apikey.properties file
                     val newUrl = originalRequest.url()
                         .newBuilder()
-                        .addQueryParameter("apiKey",
-                            com.alzu.android.newsroom.BuildConfig.API_KEY).build()
+                        .addQueryParameter(
+                            "apiKey",
+                            com.alzu.android.newsroom.BuildConfig.API_KEY6
+                        ).build()
                     val newRequest = originalRequest.newBuilder().url(newUrl).build()
-                    Log.i("URL","$newUrl")
+                    Log.i("URL", "$newUrl")
                     return chain.proceed(newRequest)
                 }
             }
@@ -38,7 +40,7 @@ class RetrofitInstance {
                 .build()
         }
 
-        val api by lazy{
+        val api by lazy {
             retrofit.create(NewsAPI::class.java)
         }
     }

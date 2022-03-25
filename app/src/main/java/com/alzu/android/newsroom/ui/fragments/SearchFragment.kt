@@ -1,88 +1,57 @@
 package com.alzu.android.newsroom.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alzu.android.newsroom.R
-import com.alzu.android.newsroom.adapters.NewsAdapter
+import com.alzu.android.newsroom.adapters.DefaultLoadStateAdapter
+import com.alzu.android.newsroom.adapters.ModernNewsAdapter
+import com.alzu.android.newsroom.adapters.TryAgainAction
 import com.alzu.android.newsroom.data.Article
 import com.alzu.android.newsroom.databinding.FragmentSearchBinding
-import com.alzu.android.newsroom.utils.Constants.Companion.DELAY_TO_SEARCH
 import com.alzu.android.newsroom.utils.Constants.Companion.SEARCH_TAG
-import com.alzu.android.newsroom.utils.Resource
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SearchFragment: BaseFragment(R.layout.fragment_search) {
     private val TAG = SEARCH_TAG
     lateinit var binding: FragmentSearchBinding
-    lateinit var newsAdapter: NewsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSearchBinding.inflate(layoutInflater)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setRecyclerView()
-        hideProgressBar()
-        var _job: Job? = null
+        setModernRecyclerView()
 
         binding.searchSV.setOnQueryTextListener( object:
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let{
                     if(it.isNotEmpty()){
-                        viewModel.searchNews(it)
-                    }
+                        viewModel.setSearchQuery(it)}
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                _job?.cancel()
-                _job = MainScope()?.launch{
-                    delay(DELAY_TO_SEARCH)
-                    newText?.let {
-                        if(it.isNotEmpty()){
-                            viewModel.searchNews(it)
-                        }
+                newText?.let{
+                    if(it.isNotEmpty()){
+                        viewModel.setSearchQuery(it)
                     }
                 }
                 return true
-            }
-
-        })
-
-        viewModel.searchNews.observe(viewLifecycleOwner, Observer{ response ->
-            when(response){
-                is Resource.Success -> {
-                    hideProgressBar()
-                    response.data?.let{
-                        newsAdapter.differ.submitList(it.articles)
-                    }
-                }
-                is Resource.Error -> {
-                    hideProgressBar()
-                    response.message?.let{
-                        Log.i(TAG,it)
-                    }
-                }
-                is Resource.Loading -> {
-                    showProgressBar()
-                }
             }
         })
     }
@@ -94,18 +63,30 @@ class SearchFragment: BaseFragment(R.layout.fragment_search) {
         binding.searchProgressBar .visibility = View.VISIBLE
     }
 
-    private fun setRecyclerView(){
-        newsAdapter = NewsAdapter { item -> adapterOnClick(item) }
+    private fun setModernRecyclerView(){
+        val newsAdapter = ModernNewsAdapter { item -> adapterOnClick(item) }
+        val tryAgainAction : TryAgainAction = {newsAdapter.retry()}
+        val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
+        val headerAdapter = DefaultLoadStateAdapter(tryAgainAction)
+        val modNewsAdapter = newsAdapter.withLoadStateHeaderAndFooter(headerAdapter,footerAdapter)
         binding.searchRV.apply {
-            adapter = newsAdapter
+            adapter = modNewsAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+        newsAdapter.addLoadStateListener { state: CombinedLoadStates ->
+            if (state.refresh ==  LoadState.Loading) showProgressBar()
+            if (state.refresh !=  LoadState.Loading) hideProgressBar()
+        }
+        observeSearchedArticles(newsAdapter)
     }
     private fun adapterOnClick(item: Article) {
-        var num = viewModel.searchNews.value?.data?.articles?.indexOf(item)
-        if (num == null) num = 0
-        val action = SearchFragmentDirections.actionSearchFragmentToArticleFragment(num,TAG)
+        val action = SearchFragmentDirections.actionSearchFragmentToArticleFragment(TAG,item)
         findNavController().navigate(action)
-        Toast.makeText(requireContext(),"${item.source}", Toast.LENGTH_SHORT).show()
+
+    }
+    private fun observeSearchedArticles(adapter: ModernNewsAdapter){
+        lifecycleScope.launch {
+            viewModel.searchNewsFlow.collectLatest { pagingData -> adapter.submitData(pagingData) }
+        }
     }
 }

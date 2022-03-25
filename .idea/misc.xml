@@ -13,9 +13,11 @@
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/layout/fragment_web_article.xml" value="0.23125" />
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/layout/item_article.xml" value="0.5" />
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/layout/item_bookmark.xml" value="0.5" />
+        <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/layout/item_default_load_state.xml" value="0.22" />
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/layout/item_search.xml" value="0.1609375" />
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/menu/menu_app_bar.xml" value="0.2609375" />
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/menu/menu_bottom_nav.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/xml/preferences.xml" value="0.2734375" />
       </map>
     </option>
   </component>

@@ -12,23 +12,23 @@ import com.alzu.android.newsroom.utils.Constants.Companion.DATABASE_NAME
     version = 1
 )
 @TypeConverters(Converters::class)
-abstract class ArticleDB: RoomDatabase() {
+abstract class ArticleDB : RoomDatabase() {
     abstract fun articleDAO(): ArticleDAO
-    companion object{
+
+    companion object {
         @Volatile
         private var instance: ArticleDB? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK){
-            instance ?: createDB(context).also{ instance = it}
+        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
+            instance ?: createDB(context).also { instance = it }
         }
 
         private fun createDB(context: Context) =
             Room.databaseBuilder(
-            context.applicationContext,
-            ArticleDB::class.java,
-            DATABASE_NAME
+                context.applicationContext,
+                ArticleDB::class.java,
+                DATABASE_NAME
             ).build()
     }
-
 }

@@ -1,5 +1,5 @@
 # newsRoom
-a news display and search android app that uses news API
+
 
 ![banner1n](https://user-images.githubusercontent.com/66402794/160296647-1746aae7-f028-4bc6-8dad-ff7c9d1a4bfa.png)
 ![banner2n](https://user-images.githubusercontent.com/66402794/160296674-05a4ffd6-1874-459e-96cf-1fdcbdccf69c.png)

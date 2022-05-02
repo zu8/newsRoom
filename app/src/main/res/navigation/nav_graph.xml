@@ -6,19 +6,20 @@
 
     <fragment
         android:id="@+id/newsFeedFragment"
-        android:name="com.alzu.android.newsroom.ui.fragments.NewsFeedFragment"
+        android:name="com.alzu.android.newsroom.presentation.fragments.NewsFeedFragment"
         android:label="Breaking news">
         <action
             android:id="@+id/action_newsFeedFragment_to_articleFragment"
             app:destination="@id/articleFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.alzu.android.newsroom.ui.fragments.SearchFragment"
+        android:name="com.alzu.android.newsroom.presentation.fragments.SearchFragment"
         android:label="Search">
         <action
             android:id="@+id/action_searchFragment_to_articleFragment"
@@ -30,19 +31,20 @@
     </fragment>
     <fragment
         android:id="@+id/bookmarksFragment"
-        android:name="com.alzu.android.newsroom.ui.fragments.BookmarksFragment"
+        android:name="com.alzu.android.newsroom.presentation.fragments.BookmarksFragment"
         android:label="Bookmarks">
         <action
             android:id="@+id/action_bookmarksFragment_to_articleFragment"
             app:destination="@id/articleFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/preferencesFragment"
-        android:name="com.alzu.android.newsroom.ui.fragments.PreferencesFragment"
+        android:name="com.alzu.android.newsroom.presentation.fragments.PreferencesFragment"
         android:label="Settings"
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -50,7 +52,7 @@
         app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     <fragment
         android:id="@+id/articleFragment"
-        android:name="com.alzu.android.newsroom.ui.fragments.ArticleFragment"
+        android:name="com.alzu.android.newsroom.presentation.fragments.ArticleFragment"
         android:label=" "
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"
@@ -62,22 +64,13 @@
         <argument
             android:name="fragmentTag"
             app:argType="string" />
-        <action
-            android:id="@+id/action_articleFragment_to_newsFeedFragment"
-            app:destination="@id/newsFeedFragment" />
-        <action
-            android:id="@+id/action_articleFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_articleFragment_to_bookmarksFragment2"
-            app:destination="@id/bookmarksFragment" />
         <argument
             android:name="article"
-            app:argType="com.alzu.android.newsroom.data.Article" />
+            app:argType="com.alzu.android.newsroom.domain.ArticleEntity" />
     </fragment>
     <fragment
         android:id="@+id/webArticleFragment"
-        android:name="com.alzu.android.newsroom.ui.fragments.WebArticleFragment"
+        android:name="com.alzu.android.newsroom.presentation.fragments.WebArticleFragment"
         android:label=" "
         app:enterAnim="@anim/nav_default_enter_anim"
         app:exitAnim="@anim/nav_default_exit_anim"

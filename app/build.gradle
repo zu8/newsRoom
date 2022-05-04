@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    def nav_version = "2.4.1"
+    def nav_version = "2.4.2"
     def room_version = "2.4.2"
     def lifecycle_version = "2.4.1"
     def touchIconVersion = "0.9.3"
@@ -92,6 +92,9 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_version"
 // preferences
     implementation "androidx.preference:preference:$pref_version"
+// dagger
+    implementation 'com.google.dagger:dagger:2.41'
+    kapt 'com.google.dagger:dagger-compiler:2.41'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

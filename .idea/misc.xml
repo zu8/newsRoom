@@ -18,6 +18,13 @@
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/menu/menu_app_bar.xml" value="0.2609375" />
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/menu/menu_bottom_nav.xml" value="0.22447916666666667" />
         <entry key="..\:/Users/alzubov/AndroidStudioProjects/NewsRoom/app/src/main/res/xml/preferences.xml" value="0.2734375" />
+        <entry key="..\:/Users/irri-/AndroidStudioProjects/newsRoom/app/src/main/res/layout/activity_news_room.xml" value="0.25" />
+        <entry key="..\:/Users/irri-/AndroidStudioProjects/newsRoom/app/src/main/res/layout/fragment_article.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/irri-/AndroidStudioProjects/newsRoom/app/src/main/res/layout/fragment_bookmarks.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/irri-/AndroidStudioProjects/newsRoom/app/src/main/res/layout/fragment_news_feed.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/irri-/AndroidStudioProjects/newsRoom/app/src/main/res/layout/fragment_search.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/irri-/AndroidStudioProjects/newsRoom/app/src/main/res/layout/fragment_web_article.xml" value="0.2755208333333333" />
+        <entry key="..\:/Users/irri-/AndroidStudioProjects/newsRoom/app/src/main/res/layout/item_article.xml" value="0.2755208333333333" />
       </map>
     </option>
   </component>

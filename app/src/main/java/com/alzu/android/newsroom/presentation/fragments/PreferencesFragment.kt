@@ -45,6 +45,5 @@ class PreferencesFragment : PreferenceFragmentCompat() {
             }
             return@setOnPreferenceChangeListener true
         }
-
     }
 }

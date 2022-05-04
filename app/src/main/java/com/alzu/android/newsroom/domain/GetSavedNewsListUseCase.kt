@@ -1,6 +1,9 @@
 package com.alzu.android.newsroom.domain
 
-class GetSavedNewsListUseCase(private val repository: NewsRepository) {
+import javax.inject.Inject
+
+class GetSavedNewsListUseCase @Inject constructor
+    (private val repository: NewsRepository) {
 
     operator fun invoke() = repository.getSavedNews()
 

@@ -18,10 +18,12 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
+import com.alzu.android.newsroom.NewsRoomApplication
 import com.alzu.android.newsroom.R
 import com.alzu.android.newsroom.domain.ArticleEntity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import javax.inject.Inject
 
 class NewsRoomActivity : AppCompatActivity() {
     val TAG = "NewsRoomActivity"
@@ -32,15 +34,21 @@ class NewsRoomActivity : AppCompatActivity() {
     lateinit var checkOut: MenuItem
     private var item: ArticleEntity? = null
 
+    @Inject
+    lateinit var viewModelFactory: NewsViewModelProviderFactory
+
+    private val component by lazy {
+        (application as NewsRoomApplication).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_news_room)
         // setting theme
         setTheme(this)
 
-        val viewModelProviderFactory = NewsViewModelProviderFactory(this.application)
-        viewModel = ViewModelProvider(this, viewModelProviderFactory)
-            .get(NewsViewModel::class.java)
+        viewModel = ViewModelProvider(this,viewModelFactory)[NewsViewModel::class.java]
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController

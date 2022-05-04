@@ -3,8 +3,9 @@ package com.alzu.android.newsroom.data.mapper
 import com.alzu.android.newsroom.data.database.ArticleDbModel
 import com.alzu.android.newsroom.data.network.model.ArticleDto
 import com.alzu.android.newsroom.domain.ArticleEntity
+import javax.inject.Inject
 
-class ArticleMapper {
+class ArticleMapper @Inject constructor() {
 
 
     fun mapArticleDbModelToEntity( articleDbModel: ArticleDbModel): ArticleEntity{

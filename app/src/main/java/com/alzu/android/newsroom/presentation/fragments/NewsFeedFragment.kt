@@ -82,7 +82,6 @@ class NewsFeedFragment : BaseFragment(R.layout.fragment_news_feed) {
     }
 
     private fun observeArticles(adapter: NewsAdapter) {
-        val sp: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireActivity())
         lifecycleScope.launch {
             viewModel.news.collectLatest (adapter::submitData)
         }
